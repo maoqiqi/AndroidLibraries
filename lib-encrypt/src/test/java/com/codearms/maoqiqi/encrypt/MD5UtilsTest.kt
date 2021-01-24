@@ -12,7 +12,7 @@ class MD5UtilsTest {
 
     @Test
     fun testMd5() {
-        val str2 = "proguard-rules.pro"
+        val str = "proguard-rules.pro"
 
         println(null.bytesToMd5())
         println(null.strToMd5())
@@ -21,10 +21,10 @@ class MD5UtilsTest {
 
         println("------------------------------")
 
-        println(str2)
-        println(str2.toByteArray().bytesToMd5().toHexString())
-        println(str2.strToMd5().toHexString())
-        println(str2.filePathToMd5().toHexString())
-        println(File(str2).fileToMd5().toHexString())
+        println(str)
+        println(str.toByteArray().bytesToMd5().toHexString())
+        println(str.strToMd5().toHexString())
+        println(str.filePathToMd5().toHexString())
+        println(File(str).fileToMd5().toHexString())
     }
 }
