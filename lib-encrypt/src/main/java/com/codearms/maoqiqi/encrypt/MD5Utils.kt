@@ -26,7 +26,7 @@ object MD5Utils {
     @JvmStatic
     @JvmOverloads
     @Throws(NoSuchAlgorithmException::class)
-    fun ByteArray?.md5(salt: ByteArray? = null): ByteArray? = this.joins(salt).hashTemplate(MD5)
+    fun ByteArray?.bytesToMd5(salt: ByteArray? = null): ByteArray? = this.joins(salt).hashTemplate(MD5)
 
     /**
      * Return the hex string of MD5 encryption.
@@ -36,7 +36,8 @@ object MD5Utils {
     @JvmStatic
     @JvmOverloads
     @Throws(NoSuchAlgorithmException::class, UnsupportedEncodingException::class)
-    fun String?.md5(charset: Charset? = Charsets.UTF_8): ByteArray? = this?.toByteArray(charset ?: Charsets.UTF_8).md5()
+    fun String?.strToMd5(charset: Charset? = Charsets.UTF_8, salt: String? = null): ByteArray? =
+        this?.toByteArray(charset ?: Charsets.UTF_8).bytesToMd5(salt?.toByteArray(charset ?: Charsets.UTF_8))
 
     /**
      * Return whether the string is null or white space.
@@ -54,7 +55,7 @@ object MD5Utils {
      */
     @JvmStatic
     @Throws(FileNotFoundException::class, NoSuchAlgorithmException::class, IOException::class)
-    fun String?.md5File(): ByteArray? = if (this == null || isSpace()) null else File(this).md5File()
+    fun String?.filePathToMd5(): ByteArray? = if (this == null || isSpace()) null else File(this).fileToMd5()
 
     /**
      * Return the bytes of file's MD5 encryption.
@@ -62,7 +63,7 @@ object MD5Utils {
      */
     @JvmStatic
     @Throws(FileNotFoundException::class, NoSuchAlgorithmException::class, IOException::class)
-    fun File?.md5File(): ByteArray? {
+    fun File?.fileToMd5(): ByteArray? {
         if (this == null) return null
         val fis = FileInputStream(this)
         var md = MessageDigest.getInstance(MD5)
