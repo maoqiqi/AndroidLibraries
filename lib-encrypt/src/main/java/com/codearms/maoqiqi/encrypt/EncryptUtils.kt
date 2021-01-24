@@ -21,15 +21,14 @@ object EncryptUtils {
 
     /**
      * Return the bytes of hash encryption.
-     * @param data The data
      * @param algorithm The name of hash encryption
      * @return the bytes of hash encryption
      */
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
-    fun hashTemplate(data: ByteArray?, algorithm: String?): ByteArray? {
-        if (data == null || data.isEmpty() || algorithm.isNullOrEmpty()) return null
-        return MessageDigest.getInstance(algorithm).digest(data)
+    fun ByteArray?.hashTemplate(algorithm: String?): ByteArray? {
+        if (this == null || this.isEmpty() || algorithm.isNullOrEmpty()) return null
+        return MessageDigest.getInstance(algorithm).digest(this)
     }
 
     /**
