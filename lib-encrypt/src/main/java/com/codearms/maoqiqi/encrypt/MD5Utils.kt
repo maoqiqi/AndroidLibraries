@@ -2,6 +2,7 @@ package com.codearms.maoqiqi.encrypt
 
 import com.codearms.maoqiqi.encrypt.ByteArrayUtils.joins
 import com.codearms.maoqiqi.encrypt.EncryptUtils.hashTemplate
+import com.codearms.maoqiqi.utils.ConvertUtils.toHexString
 import java.io.*
 import java.nio.charset.Charset
 import java.security.DigestInputStream
@@ -36,8 +37,8 @@ object MD5Utils {
     @JvmStatic
     @JvmOverloads
     @Throws(NoSuchAlgorithmException::class, UnsupportedEncodingException::class)
-    fun String?.strToMd5(charset: Charset? = Charsets.UTF_8, salt: String? = null): ByteArray? =
-        this?.toByteArray(charset ?: Charsets.UTF_8).bytesToMd5(salt?.toByteArray(charset ?: Charsets.UTF_8))
+    fun String?.strToMd5(charset: Charset? = Charsets.UTF_8, salt: String? = null): String? =
+        this?.toByteArray(charset ?: Charsets.UTF_8).bytesToMd5(salt?.toByteArray(charset ?: Charsets.UTF_8)).toHexString()
 
     /**
      * Return whether the string is null or white space.
@@ -55,7 +56,7 @@ object MD5Utils {
      */
     @JvmStatic
     @Throws(FileNotFoundException::class, NoSuchAlgorithmException::class, IOException::class)
-    fun String?.filePathToMd5(): ByteArray? = if (this == null || isSpace()) null else File(this).fileToMd5()
+    fun String?.filePathToMd5(): String? = if (this == null || isSpace()) null else File(this).fileToMd5().toHexString()
 
     /**
      * Return the bytes of file's MD5 encryption.

@@ -16,15 +16,15 @@ class MD5UtilsTest {
 
         println(null.bytesToMd5())
         println(null.strToMd5())
-        println(null.filePathToMd5())
         println(null.fileToMd5())
+        println(null.filePathToMd5())
 
         println("------------------------------")
 
         println(str)
         println(str.toByteArray().bytesToMd5().toHexString())
-        println(str.strToMd5().toHexString())
-        println(str.filePathToMd5().toHexString())
+        println(str.strToMd5())
         println(File(str).fileToMd5().toHexString())
+        println(str.filePathToMd5())
     }
 }
