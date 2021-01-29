@@ -1,18 +1,322 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/black">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_remove_watermark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="40dp"
+            android:text="Remove watermark"
+            android:textColor="#FFFFFFFF"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_export_vip_available"
+            app:layout_constraintBottom_toBottomOf="@id/tv_remove_watermark"
+            app:layout_constraintLeft_toRightOf="@id/tv_remove_watermark"
+            app:layout_constraintTop_toTopOf="@id/tv_remove_watermark" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_remove_watermark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/tv_remove_watermark"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_remove_watermark" />
+
+        <TextView
+            android:id="@+id/tv_frame_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginRight="16dp"
+            android:text="Frame rate"
+            android:textColor="#FF666666"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_remove_watermark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="The higher the smoother"
+            android:textColor="#FF666666"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_frame_rate"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_frame_rate" />
+
+        <SeekBar
+            android:id="@+id/seek_bar_frame_rate"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:max="4"
+            android:maxHeight="3dp"
+            android:minHeight="3dp"
+            android:progress="1"
+            android:progressDrawable="@drawable/ic_export_seek_bar"
+            android:secondaryProgress="4"
+            android:thumb="@drawable/ic_export_seek_bar_thumb"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_frame_rate"
+            app:tickMark="@null" />
+
+        <TextView
+            android:id="@+id/tv_twenty_four"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="16dp"
+            android:text="24"
+            android:textColor="#FF333333"
+            android:textSize="12sp"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/tv_twenty_five"
+            app:layout_constraintTop_toBottomOf="@id/seek_bar_frame_rate" />
+
+        <TextView
+            android:id="@+id/tv_twenty_five"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="25"
+            android:textColor="#FFFC5730"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toRightOf="@id/tv_twenty_four"
+            app:layout_constraintRight_toLeftOf="@id/tv_thirty"
+            app:layout_constraintTop_toTopOf="@id/tv_twenty_four" />
+
+        <TextView
+            android:id="@+id/tv_thirty"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="30"
+            android:textColor="#FF333333"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toRightOf="@id/tv_twenty_five"
+            app:layout_constraintRight_toLeftOf="@id/tv_fifty"
+            app:layout_constraintTop_toTopOf="@id/tv_twenty_four" />
+
+        <TextView
+            android:id="@+id/tv_fifty"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="50"
+            android:textColor="#FF333333"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toRightOf="@id/tv_thirty"
+            app:layout_constraintRight_toLeftOf="@id/tv_sixty"
+            app:layout_constraintTop_toTopOf="@id/tv_twenty_four" />
+
+        <TextView
+            android:id="@+id/tv_sixty"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingRight="16dp"
+            android:text="60"
+            android:textColor="#FF333333"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toRightOf="@id/tv_fifty"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_twenty_four" />
+
+        <TextView
+            android:id="@+id/tv_resolution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="34dp"
+            android:layout_marginRight="16dp"
+            android:text="Resolution"
+            android:textColor="#FF666666"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_twenty_four" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Standard resolution"
+            android:textColor="#FF666666"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_resolution"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_resolution" />
+
+        <SeekBar
+            android:id="@+id/seek_bar_resolution"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:max="3"
+            android:maxHeight="3dp"
+            android:minHeight="3dp"
+            android:progress="1"
+            android:progressDrawable="@drawable/ic_export_seek_bar"
+            android:secondaryProgress="2"
+            android:thumb="@drawable/ic_export_seek_bar_thumb"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_resolution"
+            app:tickMark="@null" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fl_480p"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/fl_720p"
+            app:layout_constraintTop_toBottomOf="@id/seek_bar_resolution">
+
+            <TextView
+                android:id="@+id/tv_480p"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="480P"
+                android:textColor="#FF333333"
+                android:textSize="12sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_export_vip_unavailable"
+                app:layout_constraintLeft_toRightOf="@id/tv_480p"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fl_720p"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/fl_480p"
+            app:layout_constraintRight_toLeftOf="@id/fl_1080p"
+            app:layout_constraintTop_toTopOf="@id/fl_480p">
+
+            <TextView
+                android:id="@+id/tv_720p"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="720P"
+                android:textColor="#FFFC5730"
+                android:textSize="12sp"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/iv_720p"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_720p"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_export_vip_unavailable"
+                app:layout_constraintLeft_toRightOf="@id/tv_720p"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fl_1080p"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/fl_720p"
+            app:layout_constraintRight_toLeftOf="@id/fl_4k"
+            app:layout_constraintTop_toTopOf="@id/fl_480p">
+
+            <TextView
+                android:id="@+id/tv_1080p"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="1080P"
+                android:textColor="#FF333333"
+                android:textSize="12sp"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/iv_1080p"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_1080p"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_export_vip_unavailable"
+                app:layout_constraintLeft_toRightOf="@id/tv_1080p"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fl_4k"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/fl_1080p"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/fl_480p">
+
+            <TextView
+                android:id="@+id/tv_4k"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4k"
+                android:textColor="#FF333333"
+                android:textSize="12sp"
+                app:layout_constraintRight_toLeftOf="@id/iv_4k"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_4k"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_export_vip_unavailable"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:text="Estimated export size: 120.78 MB"
+            android:textColor="#FF666666"
+            android:textSize="10sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fl_480p" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

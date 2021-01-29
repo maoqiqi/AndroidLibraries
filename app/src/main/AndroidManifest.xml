@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidLibraries">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LogTestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

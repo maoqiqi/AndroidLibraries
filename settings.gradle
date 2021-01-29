@@ -1,3 +1,4 @@
+include ':lib-log'
 include ':lib-encrypt'
 include ':app'
 rootProject.name = "AndroidLibraries"

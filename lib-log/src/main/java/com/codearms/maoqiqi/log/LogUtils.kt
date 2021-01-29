@@ -1,4 +1,4 @@
-package com.codearms.maoqiqi.androidlibraries
+package com.codearms.maoqiqi.log
 
 import android.util.Log
 
@@ -10,8 +10,6 @@ object LogUtils {
         val isLine: Boolean = true
     )
 
-    private val defaultLogInfo = LogInfo(defaultTagName())
-
     // Global log control switch
     @JvmStatic
     var isDebug = true
@@ -20,7 +18,7 @@ object LogUtils {
     fun v(vararg msg: Any?) {
         if (!isDebug) return
         val hasLog = msg.isNotEmpty() && msg[0] is LogInfo
-        val logInfo = if (hasLog) msg[0] as LogInfo else defaultLogInfo
+        val logInfo = if (hasLog) msg[0] as LogInfo else LogInfo(defaultTagName())
         if (logInfo.isDebug) Log.v(logInfo.tag, getMsg(hasLog, logInfo.isLine, *msg))
     }
 
@@ -28,7 +26,7 @@ object LogUtils {
     fun d(vararg msg: Any?) {
         if (!isDebug) return
         val hasLog = msg.isNotEmpty() && msg[0] is LogInfo
-        val logInfo = if (hasLog) msg[0] as LogInfo else defaultLogInfo
+        val logInfo = if (hasLog) msg[0] as LogInfo else LogInfo(defaultTagName())
         if (logInfo.isDebug) Log.d(logInfo.tag, getMsg(hasLog, logInfo.isLine, *msg))
     }
 
@@ -36,7 +34,7 @@ object LogUtils {
     fun i(vararg msg: Any?) {
         if (!isDebug) return
         val hasLog = msg.isNotEmpty() && msg[0] is LogInfo
-        val logInfo = if (hasLog) msg[0] as LogInfo else defaultLogInfo
+        val logInfo = if (hasLog) msg[0] as LogInfo else LogInfo(defaultTagName())
         if (logInfo.isDebug) Log.i(logInfo.tag, getMsg(hasLog, logInfo.isLine, *msg))
     }
 
@@ -44,7 +42,7 @@ object LogUtils {
     fun w(vararg msg: Any?) {
         if (!isDebug) return
         val hasLog = msg.isNotEmpty() && msg[0] is LogInfo
-        val logInfo = if (hasLog) msg[0] as LogInfo else defaultLogInfo
+        val logInfo = if (hasLog) msg[0] as LogInfo else LogInfo(defaultTagName())
         if (logInfo.isDebug) Log.w(logInfo.tag, getMsg(hasLog, logInfo.isLine, *msg))
     }
 
@@ -52,7 +50,7 @@ object LogUtils {
     fun e(vararg msg: Any?) {
         if (!isDebug) return
         val hasLog = msg.isNotEmpty() && msg[0] is LogInfo
-        val logInfo = if (hasLog) msg[0] as LogInfo else defaultLogInfo
+        val logInfo = if (hasLog) msg[0] as LogInfo else LogInfo(defaultTagName())
         if (logInfo.isDebug) Log.e(logInfo.tag, getMsg(hasLog, logInfo.isLine, *msg))
     }
 
@@ -84,8 +82,7 @@ object LogUtils {
     }
 
     private fun getLineInfo(element: StackTraceElement): String {
-        return "thread:${Thread.currentThread().name}[${Thread.currentThread().id}] " +
-                "${element.className}.${element.methodName}(${element.fileName}:${element.lineNumber}) "
+        return "┋┋thread:${Thread.currentThread().name}[${Thread.currentThread().id}](${element.fileName}:${element.lineNumber})┋┋ "
     }
 
     fun String?.verboseLog() = v(this)
