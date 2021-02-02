@@ -2,6 +2,12 @@ package com.codearms.maoqiqi.log
 
 import android.util.Log
 
+/**
+ * Log utils
+ * author: March
+ * date: 2021-02-01 21:01
+ * version v1.0.0
+ */
 object LogUtils {
 
     data class LogInfo @JvmOverloads constructor(
