@@ -5,6 +5,7 @@ import android.os.Build
 import android.provider.Settings
 import androidx.annotation.RequiresApi
 import java.io.File
+import java.util.*
 
 object DeviceUtils {
 
@@ -31,4 +32,18 @@ object DeviceUtils {
     // Return version code of device's system.
     fun getSDKVersionCode(): Int = Build.VERSION.SDK_INT
 
+    // 收集设备参数信息
+    fun getDeviceInfo(): Map<String, String> {
+        val map: MutableMap<String, String> = HashMap()
+        val fields = Build::class.java.declaredFields
+        try {
+            for (field in fields) {
+                field.isAccessible = true
+                map[field.name] = field.toString()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return map
+    }
 }

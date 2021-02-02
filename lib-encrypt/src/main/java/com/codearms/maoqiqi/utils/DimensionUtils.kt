@@ -1,4 +1,4 @@
-package com.codearms.maoqiqi.encrypt
+package com.codearms.maoqiqi.utils
 
 import android.content.Context
 import androidx.annotation.DimenRes

@@ -3,6 +3,8 @@ package com.codearms.maoqiqi.encrypt
 import android.content.Context
 import android.content.res.Configuration
 
+// Utils about screen.
+
 // Return the width of screen, in pixel.
 fun Context.getScreenWidth() = resources.displayMetrics.widthPixels
 
