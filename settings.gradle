@@ -1,3 +1,4 @@
+include ':lib-android'
 include ':lib-log'
 include ':lib-encrypt'
 include ':app'

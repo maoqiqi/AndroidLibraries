@@ -2,6 +2,7 @@ package com.codearms.maoqiqi.encrypt
 
 import android.content.Context
 import android.content.res.Configuration
+import android.util.DisplayMetrics
 
 // Utils about screen.
 
@@ -28,3 +29,15 @@ fun Context.isPortrait() = resources.configuration.orientation == Configuration.
 
 // Return whether screen is landscape.
 fun Context.isLandscape() = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+
+fun Context.getScreenDensityDpi(): String {
+    return when (resources.displayMetrics.densityDpi) {
+        DisplayMetrics.DENSITY_LOW -> "ldpi"
+        DisplayMetrics.DENSITY_MEDIUM -> "mdpi"
+        DisplayMetrics.DENSITY_HIGH -> "hdpi"
+        DisplayMetrics.DENSITY_XHIGH -> "xhdpi"
+        DisplayMetrics.DENSITY_XXHIGH -> "xxhdpi"
+        DisplayMetrics.DENSITY_XXXHIGH -> "xxxhdpi"
+        else -> "other"
+    }
+}

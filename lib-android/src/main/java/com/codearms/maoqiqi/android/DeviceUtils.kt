@@ -1,4 +1,4 @@
-package com.codearms.maoqiqi.utils
+package com.codearms.maoqiqi.android
 
 import android.content.Context
 import android.os.Build
@@ -26,11 +26,25 @@ object DeviceUtils {
         return Settings.Secure.getInt(this.contentResolver, Settings.Global.ADB_ENABLED, 0) > 0
     }
 
+    @JvmStatic
+    fun getLanguage(): String = Locale.getDefault().language
+
+    fun getOsVersion(): String = Build.VERSION.RELEASE
+
     // Return the version name of device's system.
-    fun getSDKVersionName(): String = Build.VERSION.RELEASE
+    fun getSdkVersionName(): String = Build.VERSION.RELEASE
 
     // Return version code of device's system.
-    fun getSDKVersionCode(): Int = Build.VERSION.SDK_INT
+    fun getSdkVersionCode(): Int = Build.VERSION.SDK_INT
+
+    fun getModel(): String = Build.MODEL
+
+    fun getBrand(): String = Build.BRAND
+
+    fun getBoard(): String = Build.BOARD
+
+    @Suppress("DEPRECATION")
+    fun getCpuAbi(): Array<String> = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) Build.SUPPORTED_ABIS else arrayOf(Build.CPU_ABI, Build.CPU_ABI2)
 
     // 收集设备参数信息
     fun getDeviceInfo(): Map<String, String> {

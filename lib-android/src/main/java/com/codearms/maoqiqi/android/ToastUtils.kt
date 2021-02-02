@@ -1,4 +1,4 @@
-package com.codearms.maoqiqi.utils
+package com.codearms.maoqiqi.android
 
 import android.content.Context
 import android.widget.Toast

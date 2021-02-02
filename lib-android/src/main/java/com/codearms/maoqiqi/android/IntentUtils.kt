@@ -1,4 +1,4 @@
-package com.codearms.maoqiqi.encrypt
+package com.codearms.maoqiqi.android
 
 import android.content.Context
 import android.content.Intent

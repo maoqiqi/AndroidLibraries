@@ -1,4 +1,4 @@
-package com.codearms.maoqiqi.utils
+package com.codearms.maoqiqi.android
 
 import android.os.Looper
 import android.os.Process
@@ -45,7 +45,7 @@ object CrashUtils : Thread.UncaughtExceptionHandler {
 
         // 收集设备参数信息
         val sb = StringBuilder()
-        val map: Map<String, String> = DeviceUtils.getDeviceInfo()
+        val map: Map<String, String> = com.codearms.maoqiqi.android.DeviceUtils.getDeviceInfo()
         for ((key, value) in map) {
             sb.append(key)
             sb.append("=")

@@ -3,6 +3,7 @@ package com.codearms.maoqiqi.utils
 import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.codearms.maoqiqi.android.px2dp
 import org.junit.Test
 import org.junit.runner.RunWith
 

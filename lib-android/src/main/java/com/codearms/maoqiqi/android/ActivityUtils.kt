@@ -1,4 +1,4 @@
-package com.codearms.maoqiqi.utils
+package com.codearms.maoqiqi.android
 
 import android.app.Activity
 import android.content.Context
