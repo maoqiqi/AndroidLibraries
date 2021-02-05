@@ -17,12 +17,14 @@ import androidx.fragment.app.Fragment
  */
 abstract class LogFragment : Fragment() {
 
+    // @deprecated Use {@link FragmentTransaction#setMaxLifecycle(Fragment, Lifecycle.State)} instead.
     @Suppress("DEPRECATION")
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         LogUtils.v("setUserVisibleHint(isVisibleToUser: Boolean),isVisibleToUser=$isVisibleToUser")
     }
 
+    // 该方法只在我们直接用标签在布局中定义的时候才会被调用
     override fun onInflate(context: Context, attrs: AttributeSet, savedInstanceState: Bundle?) {
         super.onInflate(context, attrs, savedInstanceState)
         LogUtils.v("onInflate(context: Context, attrs: AttributeSet, savedInstanceState: Bundle?)")
@@ -38,12 +40,14 @@ abstract class LogFragment : Fragment() {
         LogUtils.v("onAttachFragment(childFragment: Fragment),childFragment=${childFragment.javaClass.name}")
     }
 
+    // 系统会在创建片段时调用此方法,只会调用一次。您应该在此初始化您想在片段暂停或停止后恢复时需要的数据。
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         LogUtils.v("onCreate(savedInstanceState: Bundle?)")
         lifecycle.addObserver(LogLifecycleObserver())
     }
 
+    // 每次创建,绘制改Fragment的View组件时回调,会将显示的View返回
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         LogUtils.v("onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?")
         return super.onCreateView(inflater, container, savedInstanceState)
@@ -54,6 +58,7 @@ abstract class LogFragment : Fragment() {
         LogUtils.v("onViewCreated(view: View, savedInstanceState: Bundle?)")
     }
 
+    // 当Fragment所在的Activity启动完成后回调
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         LogUtils.v("onActivityCreated(savedInstanceState: Bundle?)")
