@@ -1,6 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.4.21"
+    ext.kotlin_version = "1.4.30"
     repositories {
         google()
         jcenter()
@@ -25,3 +25,8 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+tasks.getByPath(":lib-android:bintrayUpload").enabled = false
+tasks.getByPath(":lib-databinding:bintrayUpload").enabled = false
+tasks.getByPath(":lib-encrypt:bintrayUpload").enabled = false
+tasks.getByPath(":lib-log:bintrayUpload").enabled = false
