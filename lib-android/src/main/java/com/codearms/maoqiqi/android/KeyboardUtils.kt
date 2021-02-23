@@ -1,11 +1,10 @@
-package com.codearms.maoqiqi.utils
+package com.codearms.maoqiqi.android
 
 import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import com.codearms.maoqiqi.encrypt.getNavBarHeight
 
 object KeyboardUtils {
 
