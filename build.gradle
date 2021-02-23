@@ -30,3 +30,4 @@ tasks.getByPath(":lib-android:bintrayUpload").enabled = false
 tasks.getByPath(":lib-databinding:bintrayUpload").enabled = false
 tasks.getByPath(":lib-encrypt:bintrayUpload").enabled = false
 tasks.getByPath(":lib-log:bintrayUpload").enabled = false
+tasks.getByPath(":lib-net:bintrayUpload").enabled = false
