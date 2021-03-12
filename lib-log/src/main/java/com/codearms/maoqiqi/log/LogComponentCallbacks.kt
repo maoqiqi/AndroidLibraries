@@ -11,11 +11,13 @@ import android.content.res.Configuration
  */
 class LogComponentCallbacks : ComponentCallbacks {
 
+    protected var logInfo: LogUtils.LogInfo? = LogUtils.LogInfo(javaClass.simpleName)
+
     override fun onConfigurationChanged(newConfig: Configuration) {
-        LogUtils.v("onConfigurationChanged(newConfig: Configuration)")
+        LogUtils.v(logInfo, "onConfigurationChanged(newConfig: Configuration)")
     }
 
     override fun onLowMemory() {
-        LogUtils.v("onLowMemory()")
+        LogUtils.v(logInfo, "onLowMemory()")
     }
 }

@@ -1,9 +1,11 @@
 package com.codearms.maoqiqi.androidlibraries
 
 import android.os.Bundle
+import android.view.View
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.codearms.maoqiqi.android.singleClick
 import com.codearms.maoqiqi.androidlibraries.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -31,5 +33,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
+        binding.seekBarFrameRate.singleClick(800, {})
+        binding.seekBarFrameRate.singleClick(800, {})
     }
 }

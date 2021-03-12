@@ -28,39 +28,41 @@ import androidx.lifecycle.OnLifecycleEvent
  */
 class LogLifecycleObserver : LifecycleObserver {
 
+    protected var logInfo: LogUtils.LogInfo? = LogUtils.LogInfo(javaClass.simpleName)
+
     // 每次回调都会调用onAny
     @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
     fun onAny() {
-        LogUtils.v("onAny()")
+        LogUtils.v(logInfo, "onAny()")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-        LogUtils.v("onCreate()")
+        LogUtils.v(logInfo, "onCreate()")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStart() {
-        LogUtils.v("onStart()")
+        LogUtils.v(logInfo, "onStart()")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
-        LogUtils.v("onResume()")
+        LogUtils.v(logInfo, "onResume()")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onPause() {
-        LogUtils.v("onPause()")
+        LogUtils.v(logInfo, "onPause()")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onStop() {
-        LogUtils.v("onStop()")
+        LogUtils.v(logInfo, "onStop()")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy() {
-        LogUtils.v("onDestroy()")
+        LogUtils.v(logInfo, "onDestroy()")
     }
 }
