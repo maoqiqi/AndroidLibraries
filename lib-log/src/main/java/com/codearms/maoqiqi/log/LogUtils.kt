@@ -27,9 +27,9 @@ import android.util.Log
 object LogUtils {
 
     data class LogInfo @JvmOverloads constructor(
-        val tag: String,
-        val isDebug: Boolean = true,
-        val isLine: Boolean = true
+        var tag: String,
+        var isDebug: Boolean = true,
+        var isLine: Boolean = true
     )
 
     // Global log control switch

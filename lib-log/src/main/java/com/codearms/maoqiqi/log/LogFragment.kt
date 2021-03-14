@@ -20,9 +20,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 
 /**
@@ -62,7 +60,6 @@ abstract class LogFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         LogUtils.v(logInfo, "onCreate(savedInstanceState: Bundle?)")
-        lifecycle.addObserver(LogLifecycleObserver())
     }
 
     // 每次创建,绘制改Fragment的View组件时回调,会将显示的View返回
@@ -95,6 +92,31 @@ abstract class LogFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         LogUtils.v(logInfo, "onResume()")
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        LogUtils.v(logInfo, "onCreateOptionsMenu(menu: Menu, inflater: MenuInflater)")
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        LogUtils.v(logInfo, "onPrepareOptionsMenu(menu: Menu)")
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        LogUtils.v(logInfo, "onOptionsItemSelected(item: MenuItem): Boolean")
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onOptionsMenuClosed(menu: Menu) {
+        super.onOptionsMenuClosed(menu)
+        LogUtils.v(logInfo, "onOptionsMenuClosed(menu: Menu)")
+    }
+
+    override fun onDestroyOptionsMenu() {
+        super.onDestroyOptionsMenu()
+        LogUtils.v(logInfo, "onDestroyOptionsMenu()")
     }
 
     override fun onPause() {

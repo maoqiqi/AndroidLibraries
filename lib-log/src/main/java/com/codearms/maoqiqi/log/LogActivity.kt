@@ -20,6 +20,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 
@@ -43,7 +44,6 @@ abstract class LogActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         LogUtils.v(logInfo, "-->onCreate(savedInstanceState: Bundle?)")
-        lifecycle.addObserver(LogLifecycleObserver())
     }
 
     override fun onAttachFragment(fragment: Fragment) {
@@ -90,6 +90,16 @@ abstract class LogActivity : AppCompatActivity() {
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         LogUtils.v(logInfo, "-->onPrepareOptionsMenu(menu: Menu?): Boolean")
         return super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        LogUtils.v(logInfo, "onOptionsItemSelected(item: MenuItem): Boolean")
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onOptionsMenuClosed(menu: Menu?) {
+        super.onOptionsMenuClosed(menu)
+        LogUtils.v(logInfo, "onOptionsMenuClosed(menu: Menu?)")
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
