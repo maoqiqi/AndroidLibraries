@@ -29,7 +29,7 @@ object LogUtils {
     data class LogInfo @JvmOverloads constructor(
         var tag: String,
         var isDebug: Boolean = true,
-        var isLine: Boolean = true
+        var isLine: Boolean = false
     )
 
     // Global log control switch
