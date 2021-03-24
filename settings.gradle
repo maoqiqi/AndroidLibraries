@@ -1,3 +1,4 @@
+include ':lib-image-loader'
 include ':lib-net'
 include ':lib-databinding'
 include ':lib-android'
