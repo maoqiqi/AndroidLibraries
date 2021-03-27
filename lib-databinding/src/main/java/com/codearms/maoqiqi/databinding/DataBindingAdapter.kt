@@ -1,3 +1,19 @@
+/*
+ * Copyright [2021] [March]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.codearms.maoqiqi.databinding
 
 import android.content.Context
@@ -11,6 +27,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 /**
  * RecyclerView data binding adapter
+ * link: https://github.com/maoqiqi/AndroidLibraries
+ * e-mail: fengqi.mao.march@gmail.com
  * author: March
  * date: 2021-03-23 21:01
  * version v1.0.0
@@ -38,5 +56,23 @@ abstract class DataBindingAdapter<T, DB : ViewDataBinding>(
 
     override fun getItemCount(): Int = data?.size ?: 0
 
-    abstract fun bind(holder: DataBindingViewHolder<DB>, position: Int, binding: DB, item: T?)
+    protected fun bind(holder: DataBindingViewHolder<DB>, position: Int, binding: DB, item: T?) {
+        bind(position, binding, item)
+    }
+
+    protected fun bind(position: Int, binding: DB, item: T?) {
+
+    }
+
+    fun setDataAndNotify(newData: List<T?>?) {
+        this.data = newData?.toMutableList()
+        notifyDataSetChanged()
+    }
+
+    fun updateDataAndNotify(newData: List<T?>?) {
+        newData?.toMutableList()?.let {
+            if (data == null) data = it else data?.toMutableList()?.addAll(it)
+            notifyDataSetChanged()
+        }
+    }
 }

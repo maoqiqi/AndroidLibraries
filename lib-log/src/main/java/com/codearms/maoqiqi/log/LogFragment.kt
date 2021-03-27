@@ -25,6 +25,8 @@ import androidx.fragment.app.Fragment
 
 /**
  * Log fragment
+ * link: https://github.com/maoqiqi/AndroidLibraries
+ * e-mail: fengqi.mao.march@gmail.com
  * author: March
  * date: 2021-02-01 21:01
  * version v1.0.0
