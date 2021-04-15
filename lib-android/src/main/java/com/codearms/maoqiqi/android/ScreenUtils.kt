@@ -36,12 +36,14 @@ fun Context.getStatusBarHeight(): Int {
     val resourceId: Int = resources.getIdentifier("status_bar_height", "dimen", "android")
     return if (resourceId == 0) 0 else resources.getDimensionPixelSize(resourceId)
 }
+fun Fragment.getStatusBarHeight(): Int = requireActivity().getStatusBarHeight()
 
 // Return the navigation bar's height.
 fun Context.getNavBarHeight(): Int {
     val resourceId: Int = resources.getIdentifier("navigation_bar_height", "dimen", "android")
     return if (resourceId == 0) 0 else resources.getDimensionPixelSize(resourceId)
 }
+fun Fragment.getNavBarHeight(): Int = requireActivity().getNavBarHeight()
 
 // Return whether screen is portrait.
 fun Context.isPortrait() = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT

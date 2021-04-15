@@ -56,11 +56,11 @@ abstract class DataBindingAdapter<T, DB : ViewDataBinding>(
 
     override fun getItemCount(): Int = data?.size ?: 0
 
-    protected fun bind(holder: DataBindingViewHolder<DB>, position: Int, binding: DB, item: T?) {
+    protected open fun bind(holder: DataBindingViewHolder<DB>, position: Int, binding: DB, item: T?) {
         bind(position, binding, item)
     }
 
-    protected fun bind(position: Int, binding: DB, item: T?) {
+    protected open fun bind(position: Int, binding: DB, item: T?) {
 
     }
 
