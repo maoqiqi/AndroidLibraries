@@ -24,11 +24,11 @@ import androidx.recyclerview.widget.RecyclerView
 
 /**
  * RecyclerView data binding view holder
- * link: https://github.com/maoqiqi/AndroidLibraries
- * e-mail: fengqi.mao.march@gmail.com
- * author: March
- * date: 2021-03-23 21:01
- * version v1.0.0
+ * @link https://github.com/maoqiqi/AndroidLibraries
+ * @e-mail fengqi.mao.march@gmail.com
+ * @author March
+ * @date 2021-03-23 21:01
+ * @version v1.0.0
  */
 class DataBindingViewHolder<DB : ViewDataBinding>(itemView: View, owner: LifecycleOwner? = null) : RecyclerView.ViewHolder(itemView) {
     val binding: DB = DataBindingUtil.bind<DB>(itemView)?.apply { lifecycleOwner = owner } ?: throw IllegalStateException("DataBindingUtil.bind fail")

@@ -25,15 +25,19 @@ import androidx.fragment.app.Fragment
 
 /**
  * Log fragment
- * link: https://github.com/maoqiqi/AndroidLibraries
- * e-mail: fengqi.mao.march@gmail.com
- * author: March
- * date: 2021-02-01 21:01
- * version v1.0.0
+ * @link https://github.com/maoqiqi/AndroidLibraries
+ * @e-mail fengqi.mao.march@gmail.com
+ * @author March
+ * @date 2021-02-01 21:01
+ * @version v1.0.0
  */
-abstract class LogFragment : Fragment() {
+open class LogFragment : Fragment() {
 
-    protected var logInfo: LogUtils.LogInfo? = LogUtils.LogInfo(javaClass.simpleName)
+    protected var logInfo = LogUtils.LogInfo(javaClass.simpleName)
+
+    init {
+        LogUtils.v(logInfo, "${javaClass.simpleName} created:", this.toString())
+    }
 
     // @deprecated Use {@link FragmentTransaction#setMaxLifecycle(Fragment, Lifecycle.State)} instead.
     @Suppress("DEPRECATION")
@@ -53,15 +57,13 @@ abstract class LogFragment : Fragment() {
         LogUtils.v(logInfo, "onAttach(context: Context)")
     }
 
-    override fun onAttachFragment(childFragment: Fragment) {
-        super.onAttachFragment(childFragment)
-        LogUtils.v(logInfo, "onAttachFragment(childFragment: Fragment),childFragment=${childFragment.javaClass.name}")
-    }
-
     // 系统会在创建片段时调用此方法,只会调用一次。您应该在此初始化您想在片段暂停或停止后恢复时需要的数据。
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         LogUtils.v(logInfo, "onCreate(savedInstanceState: Bundle?)")
+        childFragmentManager.addFragmentOnAttachListener { fragmentManager, fragment ->
+            LogUtils.v(logInfo, "-->addFragmentOnAttachListener(),fragmentManager:${fragmentManager},fragment:${fragment.javaClass.name},$fragment")
+        }
     }
 
     // 每次创建,绘制改Fragment的View组件时回调,会将显示的View返回
@@ -73,12 +75,6 @@ abstract class LogFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         LogUtils.v(logInfo, "onViewCreated(view: View, savedInstanceState: Bundle?)")
-    }
-
-    // 当Fragment所在的Activity启动完成后回调
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        LogUtils.v(logInfo, "onActivityCreated(savedInstanceState: Bundle?)")
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -159,5 +155,10 @@ abstract class LogFragment : Fragment() {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         LogUtils.v(logInfo, "onHiddenChanged(hidden: Boolean),hidden=$hidden")
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        LogUtils.v(logInfo, "-->onLowMemory()")
     }
 }

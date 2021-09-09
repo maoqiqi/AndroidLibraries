@@ -22,49 +22,53 @@ import androidx.lifecycle.OnLifecycleEvent
 
 /**
  * Log lifecycle observer
- * link: https://github.com/maoqiqi/AndroidLibraries
- * e-mail: fengqi.mao.march@gmail.com
- * author: March
- * date: 2021-02-01 21:01
- * version v1.0.0
+ * @link https://github.com/maoqiqi/AndroidLibraries
+ * @e-mail fengqi.mao.march@gmail.com
+ * @author March
+ * @date 2021-02-01 21:01
+ * @version v1.0.0
  */
-class LogLifecycleObserver : LifecycleObserver {
+open class LogLifecycleObserver : LifecycleObserver {
 
-    protected var logInfo: LogUtils.LogInfo? = LogUtils.LogInfo(javaClass.simpleName)
+    protected var logInfo = LogUtils.LogInfo(javaClass.simpleName)
+
+    init {
+        LogUtils.v(logInfo, "${javaClass.simpleName} created:", this.toString())
+    }
 
     // 每次回调都会调用onAny
     @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
-    fun onAny() {
+    open fun onAny() {
         LogUtils.v(logInfo, "onAny()")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate() {
+    open fun onCreate() {
         LogUtils.v(logInfo, "onCreate()")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun onStart() {
+    open fun onStart() {
         LogUtils.v(logInfo, "onStart()")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResume() {
+    open fun onResume() {
         LogUtils.v(logInfo, "onResume()")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    fun onPause() {
+    open fun onPause() {
         LogUtils.v(logInfo, "onPause()")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    fun onStop() {
+    open fun onStop() {
         LogUtils.v(logInfo, "onStop()")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy() {
+    open fun onDestroy() {
         LogUtils.v(logInfo, "onDestroy()")
     }
 }

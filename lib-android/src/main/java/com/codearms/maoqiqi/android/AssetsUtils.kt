@@ -24,20 +24,16 @@ import java.io.InputStreamReader
 
 object AssetsUtils {
 
+    @Throws(IOException::class)
     fun Context?.getJson(fileName: String?): String {
         if (this == null || fileName == null) return ""
-        try {
-            val stringBuilder = StringBuilder()
-            val inputStream: InputStream = this.assets.open(fileName)
-            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
-            var line: String?
-            while (bufferedReader.readLine().also { line = it } != null) {
-                stringBuilder.append(line)
-            }
-            return stringBuilder.toString()
-        } catch (e: IOException) {
-            e.printStackTrace()
+        val stringBuilder = StringBuilder()
+        val inputStream: InputStream = this.assets.open(fileName)
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+        var line: String?
+        while (bufferedReader.readLine().also { line = it } != null) {
+            stringBuilder.append(line)
         }
-        return ""
+        return stringBuilder.toString()
     }
 }

@@ -27,11 +27,11 @@ import androidx.recyclerview.widget.RecyclerView
 
 /**
  * RecyclerView data binding adapter
- * link: https://github.com/maoqiqi/AndroidLibraries
- * e-mail: fengqi.mao.march@gmail.com
- * author: March
- * date: 2021-03-23 21:01
- * version v1.0.0
+ * @link https://github.com/maoqiqi/AndroidLibraries
+ * @e-mail fengqi.mao.march@gmail.com
+ * @author March
+ * @date 2021-03-23 21:01
+ * @version v1.0.0
  */
 abstract class DataBindingAdapter<T, DB : ViewDataBinding>(
     val context: Context,
@@ -51,7 +51,7 @@ abstract class DataBindingAdapter<T, DB : ViewDataBinding>(
 
     override fun onBindViewHolder(holder: DataBindingViewHolder<DB>, position: Int) {
         data?.let { bind(holder, position, holder.binding, it[position]) }
-        // holder.binding.executePendingBindings()
+        holder.binding.executePendingBindings()
     }
 
     override fun getItemCount(): Int = data?.size ?: 0
@@ -64,15 +64,18 @@ abstract class DataBindingAdapter<T, DB : ViewDataBinding>(
 
     }
 
-    fun setDataAndNotify(newData: List<T?>?) {
-        this.data = newData?.toMutableList()
-        notifyDataSetChanged()
-    }
-
-    fun updateDataAndNotify(newData: List<T?>?) {
-        newData?.toMutableList()?.let {
-            if (data == null) data = it else data?.toMutableList()?.addAll(it)
-            notifyDataSetChanged()
+    @JvmOverloads
+    fun updateDataAndNotify(newData: List<T?>?, isRefresh: Boolean = true, isNotify: Boolean = true) {
+        if (isRefresh) {
+            this.data = newData
+            if (isNotify) notifyItemRangeChanged(0, itemCount)
+        } else {
+            if (newData.isNullOrEmpty()) return
+            val tmp = arrayListOf<T?>()
+            data?.let { tmp.addAll(it) }
+            tmp.addAll(newData)
+            data = tmp
+            if (isNotify) notifyItemRangeChanged(0, itemCount)
         }
     }
 }

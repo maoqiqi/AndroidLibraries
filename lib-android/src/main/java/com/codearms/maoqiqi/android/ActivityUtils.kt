@@ -23,10 +23,10 @@ import android.view.View
 
 /**
  * Utils about activity
- * link: https://github.com/maoqiqi/AndroidLibraries
- * author: March
- * date: 2021-02-02 21:01
- * version v1.0.0
+ * @link https://github.com/maoqiqi/AndroidLibraries
+ * @author March
+ * @date 2021-02-02 21:01
+ * @version v1.0.0
  */
 object ActivityUtils {
 

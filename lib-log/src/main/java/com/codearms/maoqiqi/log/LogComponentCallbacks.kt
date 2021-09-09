@@ -21,15 +21,19 @@ import android.content.res.Configuration
 
 /**
  * Log component callbacks
- * link: https://github.com/maoqiqi/AndroidLibraries
- * e-mail: fengqi.mao.march@gmail.com
- * author: March
- * date: 2021-02-23 21:01
- * version v1.0.0
+ * @link https://github.com/maoqiqi/AndroidLibraries
+ * @e-mail fengqi.mao.march@gmail.com
+ * @author March
+ * @date 2021-02-23 21:01
+ * @version v1.0.0
  */
-class LogComponentCallbacks : ComponentCallbacks {
+open class LogComponentCallbacks : ComponentCallbacks {
 
-    protected var logInfo: LogUtils.LogInfo? = LogUtils.LogInfo(javaClass.simpleName)
+    protected var logInfo = LogUtils.LogInfo(javaClass.simpleName)
+
+    init {
+        LogUtils.v(logInfo, "${javaClass.simpleName} created:", this.toString())
+    }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         LogUtils.v(logInfo, "onConfigurationChanged(newConfig: Configuration)")

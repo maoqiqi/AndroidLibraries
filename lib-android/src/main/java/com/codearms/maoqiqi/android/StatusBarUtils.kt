@@ -19,6 +19,8 @@ package com.codearms.maoqiqi.android
 import android.app.Activity
 import android.os.Build
 import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 
 object StatusBarUtils {
 
@@ -57,5 +59,34 @@ object StatusBarUtils {
             val option = if (darkStatusBar) View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR else View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             window.decorView.systemUiVisibility = uiOptions or option
         }
+    }
+
+    @JvmStatic
+    fun setToolbarToStatusBar(toolbar: Toolbar) {
+        toolbar.apply {
+            val toolbarHeight = layoutParams.height
+            val statusBarHeight = context.getStatusBarHeight()
+            layoutParams.height = statusBarHeight + toolbarHeight
+            setPadding(paddingLeft, paddingTop + statusBarHeight, paddingRight, paddingBottom)
+        }
+    }
+
+    @JvmStatic
+    fun setToolbarParentToStatusBar(toolbar: Toolbar) {
+        val parent = toolbar.parent
+        if (parent is ViewGroup) {
+            val statusBarHeight = toolbar.context.getStatusBarHeight()
+            parent.apply { setPadding(paddingLeft, paddingTop + statusBarHeight, paddingRight, paddingBottom) }
+        }
+    }
+
+    @JvmStatic
+    fun setMarginToStatusBar(view: View) {
+        val layoutParams = view.layoutParams
+        if (layoutParams is ViewGroup.MarginLayoutParams) {
+            val statusBarHeight = view.context.getStatusBarHeight()
+            layoutParams.topMargin += statusBarHeight
+        }
+        view.layoutParams = layoutParams
     }
 }

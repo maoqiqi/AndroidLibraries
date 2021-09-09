@@ -22,19 +22,22 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 
 /**
  * Log activity
- * link: https://github.com/maoqiqi/AndroidLibraries
- * e-mail: fengqi.mao.march@gmail.com
- * author: March
- * date: 2021-02-01 21:01
- * version v1.0.0
+ * @link https://github.com/maoqiqi/AndroidLibraries
+ * @e-mail fengqi.mao.march@gmail.com
+ * @author March
+ * @date 2021-02-01 21:01
+ * @version v1.0.0
  */
-abstract class LogActivity : AppCompatActivity() {
+open class LogActivity : AppCompatActivity() {
 
-    protected var logInfo: LogUtils.LogInfo? = LogUtils.LogInfo(javaClass.simpleName)
+    protected var logInfo = LogUtils.LogInfo(javaClass.simpleName)
+
+    init {
+        LogUtils.v(logInfo, "${javaClass.simpleName} created:", this.toString())
+    }
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(newBase)
@@ -46,11 +49,9 @@ abstract class LogActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         LogUtils.v(logInfo, "-->onCreate(savedInstanceState: Bundle?)")
-    }
-
-    override fun onAttachFragment(fragment: Fragment) {
-        super.onAttachFragment(fragment)
-        LogUtils.v(logInfo, "-->onAttachFragment(fragment: Fragment),fragment:${fragment.javaClass.name}")
+        supportFragmentManager.addFragmentOnAttachListener { fragmentManager, fragment ->
+            LogUtils.v(logInfo, "-->addFragmentOnAttachListener(),fragmentManager:${fragmentManager},fragment:${fragment.javaClass.name},$fragment")
+        }
     }
 
     // 在Activity已停止并即将再次启动前调用.始终后接onStart().
@@ -147,5 +148,15 @@ abstract class LogActivity : AppCompatActivity() {
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         LogUtils.v(logInfo, "-->onConfigurationChanged(newConfig: Configuration)")
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        LogUtils.v(logInfo, "-->onLowMemory()")
+    }
+
+    override fun onTrimMemory(level: Int) {
+        super.onTrimMemory(level)
+        LogUtils.v(logInfo, "-->onTrimMemory(level: Int)")
     }
 }

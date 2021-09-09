@@ -19,23 +19,28 @@ package com.codearms.maoqiqi.android
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentTransaction
 
 object FragmentUtils {
 
     @JvmOverloads
     @JvmStatic
-    fun FragmentActivity.addFragment(container: Int, newFragment: Fragment?, tag: String? = null, savedInstanceState: Bundle? = null) {
-        val fragment = if (savedInstanceState == null) newFragment else supportFragmentManager.findFragmentByTag(tag)
-        val ft = supportFragmentManager.beginTransaction()
-        fragment?.let { if (it.isAdded) ft.show(it).commit() else ft.add(container, it, tag).commit() }
+    fun FragmentActivity.addFragment(container: Int, tag: String? = null, savedInstanceState: Bundle? = null, block: () -> Fragment?) {
+        supportFragmentManager.beginTransaction().show(container, tag, savedInstanceState, block)
     }
 
     @JvmOverloads
     @JvmStatic
-    fun Fragment.addFragment(container: Int, newFragment: Fragment?, tag: String? = null, savedInstanceState: Bundle? = null) {
-        val fragment = if (savedInstanceState == null) newFragment else childFragmentManager.findFragmentByTag(tag)
-        val ft = childFragmentManager.beginTransaction()
-        fragment?.let { if (it.isAdded) ft.show(it).commit() else ft.add(container, it, tag).commit() }
+    fun Fragment.addFragment(container: Int, tag: String? = null, savedInstanceState: Bundle? = null, block: () -> Fragment?) {
+        childFragmentManager.beginTransaction().show(container, tag, savedInstanceState, block)
+    }
+
+    @JvmOverloads
+    @JvmStatic
+    fun FragmentTransaction.show(container: Int, tag: String? = null, savedInstanceState: Bundle? = null, block: () -> Fragment?) {
+        if (savedInstanceState == null) {
+            block()?.let { if (it.isAdded) show(it).commit() else add(container, it, tag).commit() }
+        }
     }
 
     @JvmOverloads

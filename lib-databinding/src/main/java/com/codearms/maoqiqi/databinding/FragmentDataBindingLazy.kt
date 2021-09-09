@@ -24,11 +24,11 @@ import androidx.fragment.app.Fragment
 
 /**
  * Fragment data binding lazy
- * link: https://github.com/maoqiqi/AndroidLibraries
- * e-mail: fengqi.mao.march@gmail.com
- * author: March
- * date: 2021-03-23 21:01
- * version v1.0.0
+ * @link https://github.com/maoqiqi/AndroidLibraries
+ * @e-mail fengqi.mao.march@gmail.com
+ * @author March
+ * @date 2021-03-23 21:01
+ * @version v1.0.0
  */
 @MainThread
 inline fun <reified DB : ViewDataBinding> Fragment.binding(): Lazy<DB> = lazy {

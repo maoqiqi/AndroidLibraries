@@ -1,0 +1,141 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+apply plugin: 'org.jetbrains.dokka'
+
+// load properties
+Properties properties = new Properties()
+properties.load(rootProject.file('local.properties').newDataInputStream())
+
+// read properties
+def ossrhUsername = properties.getProperty("ossrh.username")
+def ossrhPassword = properties.getProperty("ossrh.password")
+if (ossrhUsername == null || ossrhPassword == null) {
+    ossrhUsername = System.getenv("ossrh_username")
+    ossrhPassword = System.getenv("ossrh_password")
+}
+
+// Config
+def developerId = getProperty("developer.id")
+def developerName = getProperty("developer.name")
+def developerEmail = getProperty("developer.email")
+def mavenCentralGroupId = getProperty("mavenCentral.groupId")
+def mavenCentralWebsite = getProperty("mavenCentral.website")
+def mavenCentralScm = getProperty("mavenCentral.scm")
+def mavenCentralPackaging = getProperty("mavenCentral.packaging")
+def mavenCentralName = getProperty("mavenCentral.name")
+def mavenCentralDesc = getProperty("mavenCentral.desc")
+def mavenCentralVersion
+if (mavenCentralPackaging == "jar") {
+    mavenCentralVersion = getProperty("mavenCentral.version")
+} else if (mavenCentralPackaging == "aar") {
+    mavenCentralVersion = android.defaultConfig.versionName
+}
+
+// Because the components are created only during the afterEvaluate phase, you must configure your publications using the afterEvaluate() lifecycle method.
+afterEvaluate {
+    if (mavenCentralPackaging == "jar") {
+        java {
+            withJavadocJar()
+            withSourcesJar()
+        }
+    } else if (mavenCentralPackaging == "aar") {
+        // The following is the task of generating sources.jar and javadoc.jar
+
+        // This generates sources.jar
+        task sourcesJar(type: Jar) {
+            // Specify the source code through the from function, which is the default source
+            from android.sourceSets.main.java.srcDirs
+            archiveClassifier.set("sources")
+            // exclude "**/R.class"
+            // exclude "**/BuildConfig.class"
+        }
+
+        // Set the Javadoc
+        // Android项目需要额外定义一下task,java-library等项目插件自带task
+        task javadoc(type: Javadoc) {
+            source = android.sourceSets.main.java.srcDirs
+            classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+            options.encoding = "UTF-8"
+            failOnError false
+        }
+
+        // This generates javadoc.jar, dependsOn here means that this task will only start after the javadoc complete.
+        task javadocJar(type: Jar, dependsOn: javadoc) {
+            from javadoc.destinationDir
+            archiveClassifier.set("javadoc")
+        }
+
+        task dokkaJavadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+            from "build/dokka/javadoc"
+            archiveClassifier.set("javadoc")
+        }
+
+        task dokkaHtmlJar(type: Jar, dependsOn: dokkaHtml) {
+            from "build/dokka/html"
+            archiveClassifier.set("html-doc")
+        }
+    }
+    publishing {
+        publications {
+            // Creates a Maven publication called "maven".
+            maven(MavenPublication) {
+                if (mavenCentralPackaging == "jar") {
+                    from components.java
+                } else if (mavenCentralPackaging == "aar") {
+                    from components.release
+                    artifact sourcesJar
+                    // artifact javadocJar
+                    artifact dokkaJavadocJar
+                    artifact dokkaHtmlJar
+                    // artifact('build/outputs/aar/lib-log-release.aar')
+                }
+                // You can then customize attributes of the publication as shown below.
+                groupId = mavenCentralGroupId
+                artifactId = mavenCentralName
+                version = mavenCentralVersion
+                pom {
+                    name = mavenCentralName
+                    description = mavenCentralDesc
+                    url = mavenCentralWebsite
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = developerId
+                            name = developerName
+                            email = developerEmail
+                        }
+                    }
+                    scm {
+                        connection = mavenCentralScm
+                        developerConnection = mavenCentralScm
+                        url = mavenCentralScm
+                    }
+                }
+            }
+        }
+        repositories {
+            maven {
+                name = "mavencentral"
+                // change URLs to point to your repos, e.g. http://my.org/repo
+                // def releasesRepoUrl = layout.buildDirectory.dir('repos/releases')
+                // def snapshotsRepoUrl = layout.buildDirectory.dir('repos/snapshots')
+                // url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                url = 'https://s01.oss.sonatype.org/content/repositories/releases/'
+                credentials {
+                    username ossrhUsername
+                    password ossrhPassword
+                }
+            }
+        }
+    }
+
+    signing {
+        sign publishing.publications.maven
+    }
+}
+

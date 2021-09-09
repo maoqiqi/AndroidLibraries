@@ -22,15 +22,19 @@ import android.os.Bundle
 
 /**
  * Log application activity lifecycle callbacks
- * link: https://github.com/maoqiqi/AndroidLibraries
- * e-mail: fengqi.mao.march@gmail.com
- * author: March
- * date: 2021-02-23 21:01
- * version v1.0.0
+ * @link https://github.com/maoqiqi/AndroidLibraries
+ * @e-mail fengqi.mao.march@gmail.com
+ * @author March
+ * @date 2021-02-23 21:01
+ * @version v1.0.0
  */
-class LogLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
+open class LogLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
 
-    protected var logInfo: LogUtils.LogInfo? = LogUtils.LogInfo(javaClass.simpleName)
+    protected var logInfo = LogUtils.LogInfo(javaClass.simpleName)
+
+    init {
+        LogUtils.v(logInfo, "${javaClass.simpleName} created:", this.toString())
+    }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         LogUtils.v(logInfo, "onActivityCreated(activity: Activity, savedInstanceState: Bundle?)")

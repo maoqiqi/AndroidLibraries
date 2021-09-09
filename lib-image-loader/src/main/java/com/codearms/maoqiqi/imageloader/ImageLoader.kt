@@ -1,29 +1,28 @@
+@file:JvmName("ImageLoader")
+
 package com.codearms.maoqiqi.imageloader
 
 import android.app.Activity
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
 
-object ImageLoader {
+@JvmOverloads
+fun Activity.displayImage(imageView: ImageView, path: String?, placeholder: Int = 0, error: Int = 0) {
+    if (path.isNullOrEmpty()) return
+    val builder: RequestBuilder<Drawable> = Glide.with(this).load(path)
+    if (placeholder != 0) builder.placeholder(placeholder)
+    if (error != 0) builder.error(error)
+    builder.into(imageView)
+}
 
-    @JvmOverloads
-    @JvmStatic
-    fun Activity.displayImage(imageView: ImageView, path: String?, placeholder: Int = 0) {
-        if (path.isNullOrEmpty()) return
-        if (placeholder == 0)
-            Glide.with(this).load(path).into(imageView)
-        else
-            Glide.with(this).load(path).placeholder(placeholder).into(imageView)
-    }
-
-    @JvmOverloads
-    @JvmStatic
-    fun Fragment.displayImage(imageView: ImageView, path: String?, placeholder: Int = 0) {
-        if (path.isNullOrEmpty()) return
-        if (placeholder == 0)
-            Glide.with(this).load(path).into(imageView)
-        else
-            Glide.with(this).load(path).placeholder(placeholder).into(imageView)
-    }
+@JvmOverloads
+fun Fragment.displayImage(imageView: ImageView, path: String?, placeholder: Int = 0, error: Int = 0) {
+    if (path.isNullOrEmpty()) return
+    val builder: RequestBuilder<Drawable> = Glide.with(this).load(path)
+    if (placeholder != 0) builder.placeholder(placeholder)
+    if (error != 0) builder.error(error)
+    builder.into(imageView)
 }

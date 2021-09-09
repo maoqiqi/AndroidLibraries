@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.codearms.maoqiqi.android.ClickUtils.singleClick
 import com.codearms.maoqiqi.androidlibraries.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
