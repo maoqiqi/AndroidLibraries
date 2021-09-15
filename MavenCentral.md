@@ -1,11 +1,21 @@
 # MavenCentral发布指南
 
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.maoqiqi/lib-log)](https://search.maven.org/artifact/io.github.maoqiqi/lib-log)
+[![Min Sdk Version](https://img.shields.io/badge/API-16%2B-brightgreen.svg)](https://developer.android.com/about/versions/android-4.1.html)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Author](https://img.shields.io/badge/Author-March-orange.svg)](fengqi.mao.march@gmail.com)
+
+## Catalog
+
 * [前言](#前言)
-* [注册和激活Sonatype](#注册和激活Sonatype)
-* [申请密钥](#申请密钥)
+* [注册和激活](#注册和激活)
+* [GPG使用](#GPG使用)
 * [部署](#部署)
 * [发布](#发布)
 * [查看](#查看)
+* [引用](#引用)
+* [参考资料](#参考资料)
+* [License](#License)
 
 ## 前言
 
@@ -25,9 +35,7 @@
 
 而距离Jcenter宣布停止对非付费用户的各项运营政策已经有一段时间了，随着时间的推移，未付费用户托管的Library将无法再被获取。再不行动起来，托管在Jcenter和Jfrog的Library就要没了。
 
-## 注册和激活Sonatype
-
-参考地址：[https://central.sonatype.org/pages/ossrh-guide.html](https://central.sonatype.org/pages/ossrh-guide.html)
+## 注册和激活
 
 ### Sonatype简介
 
@@ -76,7 +84,15 @@ Sonatype OSSRH (OSS Repository Hosting) 使用 Sonatype Nexus Repository Manager
 
 注意：不要一直盯着等待，注册时填写了邮箱，一旦流程状态发生了变更，会有邮件通知。
 
-## 申请密钥
+## GPG使用
+
+### GPG是什么
+
+* GPG是一个使用RSA算法加解密的软件。
+* 有公网的公开仓库，可以上传公钥，供其他服务解密。简单说就是有公网的加解密服务。
+* Sonatype要求推送的jar包要加密，并会根据信息去公网的仓库验证，成功才能发布。
+
+### 申请密钥
 
 这里需要一个GPG秘钥，需要下载GPG管理器客户端完成申请：
 
@@ -107,7 +123,13 @@ sub   rsa3072 2021-05-17 [E] [expires: 2023-05-17]
 
 ### 上传公钥到公共服务器
 
-在 sonatype 的仓库提交后，需要从多个公钥服务器上下载匹配的公钥，然后来校验你上传的文件的签名。(hkp://keyserver.ubuntu.com,keys.openpgp.org)
+在 sonatype 的仓库提交后，需要从多个公钥服务器上下载匹配的公钥，然后来校验你上传的文件的签名。
+
+使用的三个公共仓库地址，上传任意一个即可：
+
+* keys.openpgp.org
+* keyserver.ubuntu.com
+* pool.sks-keyservers.net
 
 ```
 gpg --keyserver hkp://keyserver.ubuntu.com --send-keys [密钥指纹]
@@ -123,11 +145,15 @@ gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys [密钥指纹]
 
 进行文件签名的时候需要用到名为 secret.gpg 的文件，我们可以通过如下命令生成：```gpg --export-secret-keys [密钥指纹] > secret.gpg```
 
-### 导出公钥、密钥、钥匙串
+### 秘钥管理
+
+上述所生成的密钥为了方便之后电脑重装或更换电脑不慎丢失等问题，请采用下列方式对密钥进行相应的处理，然后再把密钥文件进行妥善管理，切记，切记，切记！
 
 * 导出公钥到 public-file.key 文件：```gpg -a -o public-file.key --export [密钥指纹]```
 
 * 导出私钥到 private-file.key 文件：```gpg -a -o private-file.key --export-secret-keys [密钥指纹]```
+
+* 导入公钥/私钥：```gpg --import public-file.key/private-file.key```
 
 ### GUI操作
 
@@ -335,4 +361,30 @@ repositories {
     //或者
     maven {url "https://s01.oss.sonatype.org/content/repositories/releases"}
 }
+```
+
+## 参考资料
+
+* [Maven Central Repository Search](https://search.maven.org)
+* [The Central Repository Documentation](https://central.sonatype.org/pages/ossrh-guide.html)
+* [Publishing your first Android library to MavenCentral](https://proandroiddev.com/publishing-your-first-android-library-to-mavencentral-be2c51330b88)
+* [Android库发布到Maven Central全攻略](https://xiaozhuanlan.com/topic/6174835029)
+* [MAVEN中央仓库JAR包发布全流程详解](https://www.freesion.com/article/45471417106/)
+
+## License
+
+```
+   Copyright [2021] [March]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
 ```
