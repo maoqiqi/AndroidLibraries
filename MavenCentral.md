@@ -1,6 +1,6 @@
 # MavenCentral发布指南
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.maoqiqi/lib-log)](https://search.maven.org/artifact/io.github.maoqiqi/lib-log)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.maoqiqi/lib-log/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.maoqiqi/lib-log)
 [![Min Sdk Version](https://img.shields.io/badge/API-16%2B-brightgreen.svg)](https://developer.android.com/about/versions/android-4.1.html)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Author](https://img.shields.io/badge/Author-March-orange.svg)](fengqi.mao.march@gmail.com)
